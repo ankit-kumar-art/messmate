@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ recipe.title }} — MessMate{% endblock %}
+
+{% block content %}
+
+<section class="detail-hero">
+    <div class="detail-image">
+        {% if recipe.image %}
+            <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+        {% else %}
+            <div class="coupon-placeholder detail-placeholder">🍲</div>
+        {% endif %}
+    </div>
+    <div class="detail-overlay">
+        <a href="{% url 'home' %}" class="back-link">← Back to Recipes</a>
+        <span class="coupon-tag detail-tag">{{ recipe.get_category_display }}</span>
+        <h1>{{ recipe.title }}</h1>
+
+        <div class="detail-badges">
+            {% if recipe.prep_time %}<span class="info-badge">⏱ {{ recipe.prep_time }} min</span>{% endif %}
+            {% if recipe.servings %}<span class="info-badge">🍽 Serves {{ recipe.servings }}</span>{% endif %}
+            {% if recipe.cost_estimate %}<span class="info-badge">💰 {{ recipe.get_cost_estimate_display }}</span>{% endif %}
+            {% if recipe.rating_count %}<span class="info-badge">⭐ {{ recipe.avg_rating }} ({{ recipe.rating_count }})</span>{% endif %}
+        </div>
+
+        <div class="detail-meta">
+            <span>{{ recipe.created_at|date:"d M Y" }}{% if recipe.created_by %} · by {{ recipe.created_by.username }}{% endif %}</span>
+            {% if user.is_authenticated %}
+                <form method="POST" action="{% url 'toggle_like' recipe.id %}" class="like-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{% url 'recipe_detail' recipe.id %}">
+                    <button type="submit" class="like-btn detail-like-btn {% if is_liked %}liked{% endif %}">
+                        {% if is_liked %}❤ Liked{% else %}🤍 Like{% endif %} ({{ recipe.like_count }})
+                    </button>
+                </form>
+            {% else %}
+                <span class="like-count-static">🤍 {{ recipe.like_count }} likes</span>
+            {% endif %}
+            {% if is_owner %}
+                <a href="{% url 'edit_recipe' recipe.id %}" class="edit-link">✎ Edit</a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="detail-body">
+    <div class="detail-grid">
+        <div class="detail-main">
+            <h2>About this recipe</h2>
+            <p class="detail-description">{{ recipe.description }}</p>
+
+            <h2>Steps</h2>
+            {% if step_list %}
+            <ol class="steps-list">
+                {% for step in step_list %}
+                    <li>{{ step }}</li>
+                {% endfor %}
+            </ol>
+            {% else %}
+                <p class="detail-description">No steps added yet.</p>
+            {% endif %}
+        </div>
+
+        <aside class="detail-side">
+            <div class="ingredients-card">
+                <h2>Ingredients</h2>
+                {% if ingredient_list %}
+                <ul class="ingredients-list">
+                    {% for item in ingredient_list %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                    <p class="detail-description">No ingredients added yet.</p>
+                {% endif %}
+            </div>
+        </aside>
+    </div>
+
+    <div class="rating-section">
+        <h2>Rate this recipe</h2>
+        {% if user.is_authenticated %}
+            <form method="POST" action="{% url 'rate_recipe' recipe.id %}" class="star-form">
+                {% csrf_token %}
+                <div class="star-picker">
+                    {% for i in star_range %}
+                        <button type="submit" name="stars" value="{{ i }}" class="star-btn {% if user_rating and i <= user_rating %}filled{% endif %}">★</button>
+                    {% endfor %}
+                </div>
+            </form>
+            {% if user_rating %}<p class="detail-description">You rated this {{ user_rating }}★</p>{% endif %}
+        {% else %}
+            <p class="detail-description"><a href="{% url 'login' %}">Login</a> to rate this recipe.</p>
+        {% endif %}
+    </div>
+
+    <div class="comments-section">
+        <h2>Comments & Tips ({{ comments|length }})</h2>
+
+        {% if user.is_authenticated %}
+            <form method="POST" action="{% url 'add_comment' recipe.id %}" class="comment-form">
+                {% csrf_token %}
+                <textarea name="text" rows="2" placeholder="Share a tip or variation..." required></textarea>
+                <button type="submit" class="btn btn-primary">Post</button>
+            </form>
+        {% endif %}
+
+        {% for comment in comments %}
+            <div class="comment-item">
+                <div class="comment-head">
+                    <strong>{{ comment.user.username }}</strong>
+                    <span class="coupon-date">{{ comment.created_at|date:"d M Y" }}</span>
+                </div>
+                <p>{{ comment.text }}</p>
+            </div>
+        {% empty %}
+            <p class="detail-description">No comments yet — be the first to share a tip!</p>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile — MessMate{% endblock %}
+
+{% block content %}
+<section class="form-section">
+    <div class="profile-page-stack">
+    <div class="form-card profile-card">
+        <span class="eyebrow">Your Account</span>
+        <h2>My Profile</h2>
+
+        <div class="profile-pic-wrap">
+            {% if profile.profile_pic %}
+                <img src="{{ profile.profile_pic.url }}" alt="{{ request.user.username }}" class="profile-pic">
+            {% else %}
+                <div class="profile-pic-placeholder">{{ request.user.username|first|upper }}</div>
+            {% endif %}
+        </div>
+
+        <div class="profile-info">
+            <p><strong>Username:</strong> {{ request.user.username }}</p>
+            {% if request.user.email %}<p><strong>Email:</strong> {{ request.user.email }}</p>{% endif %}
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" class="stacked-form">
+            {% csrf_token %}
+            <label for="id_bio">Bio</label>
+            <textarea id="id_bio" name="bio" rows="4" placeholder="Tell us a bit about yourself...">{{ profile.bio }}</textarea>
+
+            <label for="id_profile_pic">Profile Photo</label>
+            <input type="file" id="id_profile_pic" name="profile_pic" accept="image/*">
+
+            <button type="submit" class="btn btn-primary btn-block">Update Profile</button>
+        </form>
+
+        <p class="form-footer"><a href="{% url 'home' %}">← Back to Home</a></p>
+    </div>
+
+    <div class="form-card my-recipes-card">
+        <h2>My Recipes ({{ my_recipes|length }})</h2>
+        {% if my_recipes %}
+            <div class="my-recipes-list">
+                {% for recipe in my_recipes %}
+                    <a href="{% url 'recipe_detail' recipe.id %}" class="my-recipe-row">
+                        <span>{{ recipe.title }}</span>
+                        <span class="coupon-date">{{ recipe.get_category_display }} · ❤ {{ recipe.like_count }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="detail-description">You haven't added any recipes yet. <a href="{% url 'add_recipe' %}">Add your first one →</a></p>
+        {% endif %}
+    </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MessMate{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+<header class="site-header">
+    <nav class="navbar">
+        <a href="{% url 'home' %}" class="brand">Mess<span>Mate</span></a>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+
+        <div class="menu" id="navMenu">
+            <a href="{% url 'home' %}" class="nav-link">Home</a>
+            <a href="{% url 'food_news' %}" class="nav-link">Food News</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'add_recipe' %}" class="nav-link">Add Recipe</a>
+                <a href="{% url 'profile' %}" class="nav-link">Profile</a>
+                <a href="{% url 'logout' %}" class="nav-link nav-cta">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="nav-link">Login</a>
+                <a href="{% url 'signup' %}" class="nav-link nav-cta">Sign Up</a>
+            {% endif %}
+        </div>
+    </nav>
+</header>
+
+{% if messages %}
+<div class="messages-wrap">
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+    <p>Mess<span>Mate</span> — cook smart, eat well, hostel life sorted.</p>
+</footer>
+
+<script>
+    const toggle = document.getElementById('navToggle');
+    const menu = document.getElementById('navMenu');
+    if (toggle) {
+        toggle.addEventListener('click', () => {
+            const isOpen = menu.classList.toggle('open');
+            toggle.classList.toggle('open');
+            toggle.setAttribute('aria-expanded', isOpen);
+        });
+    }
+</script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

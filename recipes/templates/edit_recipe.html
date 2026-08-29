@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Recipe — MessMate{% endblock %}
+
+{% block content %}
+<section class="form-section">
+    <div class="form-card">
+        <span class="eyebrow">Editing</span>
+        <h2>Edit Recipe</h2>
+        <p class="form-sub">Update the details of "{{ recipe.title }}".</p>
+
+        <form method="POST" enctype="multipart/form-data" class="stacked-form">
+            {% csrf_token %}
+
+            <label for="id_title">Title</label>
+            <input type="text" id="id_title" name="title" value="{{ recipe.title }}" required>
+
+            <label for="id_description">Description</label>
+            <textarea id="id_description" name="description" rows="3">{{ recipe.description }}</textarea>
+
+            <label for="id_category">Category</label>
+            <select id="id_category" name="category">
+                <option value="breakfast" {% if recipe.category == 'breakfast' %}selected{% endif %}>Breakfast</option>
+                <option value="lunch" {% if recipe.category == 'lunch' %}selected{% endif %}>Lunch</option>
+                <option value="dinner" {% if recipe.category == 'dinner' %}selected{% endif %}>Dinner</option>
+                <option value="snacks" {% if recipe.category == 'snacks' %}selected{% endif %}>Snacks & Quick Bites</option>
+            </select>
+
+            <div class="form-row">
+                <div>
+                    <label for="id_prep_time">Prep Time (minutes)</label>
+                    <input type="number" id="id_prep_time" name="prep_time" min="1" value="{{ recipe.prep_time|default_if_none:'' }}">
+                </div>
+                <div>
+                    <label for="id_servings">Servings</label>
+                    <input type="number" id="id_servings" name="servings" min="1" value="{{ recipe.servings|default_if_none:'' }}">
+                </div>
+            </div>
+
+            <label for="id_cost_estimate">Cost Estimate</label>
+            <select id="id_cost_estimate" name="cost_estimate">
+                <option value="">— Select —</option>
+                <option value="under_50" {% if recipe.cost_estimate == 'under_50' %}selected{% endif %}>Under ₹50</option>
+                <option value="50_100" {% if recipe.cost_estimate == '50_100' %}selected{% endif %}>₹50 – ₹100</option>
+                <option value="100_200" {% if recipe.cost_estimate == '100_200' %}selected{% endif %}>₹100 – ₹200</option>
+                <option value="above_200" {% if recipe.cost_estimate == 'above_200' %}selected{% endif %}>Above ₹200</option>
+            </select>
+
+            <label for="id_ingredients">Ingredients</label>
+            <textarea id="id_ingredients" name="ingredients" rows="4">{{ recipe.ingredients }}</textarea>
+
+            <label for="id_steps">Steps</label>
+            <textarea id="id_steps" name="steps" rows="5">{{ recipe.steps }}</textarea>
+
+            {% if recipe.image %}
+                <p class="form-sub">Current photo:</p>
+                <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" style="width:100px;border-radius:10px;margin-bottom:0.8rem;">
+            {% endif %}
+            <label for="id_image">Replace Photo</label>
+            <input type="file" id="id_image" name="image" accept="image/*">
+
+            <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+        </form>
+
+        <form method="POST" action="{% url 'delete_recipe' recipe.id %}" class="delete-form" onsubmit="return confirm('Delete this recipe permanently?');">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger btn-block">Delete Recipe</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

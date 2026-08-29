@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Recipe — MessMate{% endblock %}
+
+{% block content %}
+<section class="form-section">
+    <div class="form-card">
+        <span class="eyebrow">New Entry</span>
+        <h2>Add a Recipe</h2>
+        <p class="form-sub">Share a dish your hostel mates will thank you for.</p>
+
+        <form method="POST" enctype="multipart/form-data" class="stacked-form">
+            {% csrf_token %}
+
+            <label for="id_title">Title</label>
+            <input type="text" id="id_title" name="title" placeholder="e.g. 5-Minute Masala Maggi" required>
+
+            <label for="id_description">Description</label>
+            <textarea id="id_description" name="description" rows="3" placeholder="A short intro — what makes this dish special?"></textarea>
+
+            <label for="id_category">Category</label>
+            <select id="id_category" name="category">
+                <option value="breakfast">Breakfast</option>
+                <option value="lunch">Lunch</option>
+                <option value="dinner" selected>Dinner</option>
+                <option value="snacks">Snacks & Quick Bites</option>
+            </select>
+
+            <div class="form-row">
+                <div>
+                    <label for="id_prep_time">Prep Time (minutes)</label>
+                    <input type="number" id="id_prep_time" name="prep_time" min="1" placeholder="e.g. 10">
+                </div>
+                <div>
+                    <label for="id_servings">Servings</label>
+                    <input type="number" id="id_servings" name="servings" min="1" placeholder="e.g. 2">
+                </div>
+            </div>
+
+            <label for="id_cost_estimate">Cost Estimate</label>
+            <select id="id_cost_estimate" name="cost_estimate">
+                <option value="">— Select —</option>
+                <option value="under_50">Under ₹50</option>
+                <option value="50_100">₹50 – ₹100</option>
+                <option value="100_200">₹100 – ₹200</option>
+                <option value="above_200">Above ₹200</option>
+            </select>
+
+            <label for="id_ingredients">Ingredients</label>
+            <textarea id="id_ingredients" name="ingredients" rows="4" placeholder="One ingredient per line..."></textarea>
+
+            <label for="id_steps">Steps</label>
+            <textarea id="id_steps" name="steps" rows="5" placeholder="1. Boil water...&#10;2. Add masala..."></textarea>
+
+            <label for="id_image">Photo</label>
+            <input type="file" id="id_image" name="image" accept="image/*">
+
+            <button type="submit" class="btn btn-primary btn-block">Save Recipe</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

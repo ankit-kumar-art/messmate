@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign Up — MessMate{% endblock %}
+
+{% block content %}
+<section class="form-section">
+    <div class="form-card">
+        <span class="eyebrow">Join MessMate</span>
+        <h2>Create Account</h2>
+
+        <form method="POST" class="stacked-form">
+            {% csrf_token %}
+            <label for="id_username">Username</label>
+            <input type="text" id="id_username" name="username" placeholder="Choose a username" required autofocus>
+
+            <label for="id_password">Password</label>
+            <input type="password" id="id_password" name="password" placeholder="Choose a password" required>
+
+            <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+        </form>
+
+        <p class="form-footer">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+    </div>
+</section>
+{% endblock %}

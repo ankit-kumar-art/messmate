@@ -1,0 +1,1086 @@
+/* ==========================================================================
+   MessMate — design tokens
+   Palette drawn from hostel-mess life: turmeric spice, chili, fresh herb,
+   on a warm khaki paper. Signature element: the "mess coupon" ticket-stub
+   card used for both recipes and news.
+   ========================================================================== */
+:root {
+    --paper: #EDE8D8;
+    --paper-soft: #F5F2E8;
+    --card-bg: #FFFDF8;
+    --ink: #26201A;
+    --ink-soft: #5C5245;
+    --line: #D8CBB0;
+
+    --turmeric: #D98A2B;
+    --turmeric-dark: #B8721F;
+    --chili: #B23A22;
+    --herb: #5B7952;
+
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'Space Mono', 'Courier New', monospace;
+
+    --radius: 14px;
+    --shadow-card: 0 6px 18px rgba(38, 32, 26, 0.10);
+    --shadow-card-hover: 0 14px 28px rgba(38, 32, 26, 0.16);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.15;
+}
+
+:focus-visible {
+    outline: 3px solid var(--turmeric);
+    outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Header / Navbar
+   ========================================================================== */
+.site-header {
+    background: var(--ink);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.navbar {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0.9rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--paper-soft);
+    letter-spacing: 0.01em;
+}
+
+.brand span {
+    color: var(--turmeric);
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+}
+
+.nav-link {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--paper-soft);
+    opacity: 0.85;
+    transition: opacity 0.15s ease;
+    white-space: nowrap;
+}
+
+.nav-link:hover {
+    opacity: 1;
+}
+
+.nav-cta {
+    background: var(--turmeric);
+    color: var(--ink);
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    font-weight: 600;
+    opacity: 1;
+}
+
+.nav-cta:hover {
+    background: #E8A048;
+}
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 26px;
+    height: 19px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.nav-toggle span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: var(--paper-soft);
+    border-radius: 2px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* ==========================================================================
+   Messages / alerts
+   ========================================================================== */
+.messages-wrap {
+    max-width: 1180px;
+    margin: 1rem auto 0;
+    padding: 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.alert {
+    padding: 0.75rem 1.1rem;
+    border-radius: 10px;
+    font-size: 0.92rem;
+    font-weight: 500;
+    border-left: 4px solid var(--herb);
+    background: #EEF3EA;
+    color: var(--ink);
+}
+
+.alert-error {
+    border-left-color: var(--chili);
+    background: #FBEAE5;
+}
+
+.alert-success {
+    border-left-color: var(--herb);
+    background: #EEF3EA;
+}
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+.hero {
+    background: linear-gradient(180deg, var(--ink) 0%, #342A20 100%);
+    color: var(--paper-soft);
+    padding: 4.5rem 1.5rem 5rem;
+    text-align: center;
+    position: relative;
+}
+
+.hero-small {
+    padding: 3rem 1.5rem 3.5rem;
+}
+
+.hero-content {
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--turmeric);
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.hero h1 {
+    font-size: clamp(2.1rem, 5vw, 3.1rem);
+    color: #FFF9EE;
+    margin-bottom: 0.9rem;
+}
+
+.hero p {
+    font-size: 1.05rem;
+    color: #D8CFC0;
+    margin-bottom: 2rem;
+}
+
+.search-form {
+    display: flex;
+    max-width: 480px;
+    margin: 0 auto;
+    box-shadow: var(--shadow-card);
+    border-radius: 999px;
+    overflow: hidden;
+    background: var(--card-bg);
+}
+
+.search-form input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 0.9rem 1.3rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--ink);
+}
+
+.search-form input:focus {
+    outline: none;
+}
+
+.search-form button {
+    border: none;
+    background: var(--turmeric);
+    color: var(--ink);
+    font-weight: 600;
+    padding: 0 1.5rem;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.search-form button:hover {
+    background: #E8A048;
+}
+
+/* ==========================================================================
+   Section layout
+   ========================================================================== */
+.recipes-section {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+    flex: 1;
+}
+
+.section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.section-head h2 {
+    font-size: 1.6rem;
+    color: var(--ink);
+}
+
+.btn {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.92rem;
+    padding: 0.7rem 1.4rem;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.12s ease, background 0.15s ease, box-shadow 0.15s ease;
+    text-align: center;
+}
+
+.btn-primary {
+    background: var(--turmeric);
+    color: var(--ink);
+    box-shadow: var(--shadow-card);
+}
+
+.btn-primary:hover {
+    background: var(--turmeric-dark);
+    transform: translateY(-1px);
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+}
+
+/* ==========================================================================
+   Signature component: the "mess coupon" ticket-stub card
+   ========================================================================== */
+.coupon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 1.75rem;
+}
+
+.coupon-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    position: relative;
+}
+
+.coupon-card:hover {
+    transform: translateY(-4px) rotate(-0.4deg);
+    box-shadow: var(--shadow-card-hover);
+}
+
+.coupon-image {
+    position: relative;
+    height: 170px;
+    background: var(--paper-soft);
+}
+
+.coupon-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.coupon-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.6rem;
+    background: repeating-linear-gradient(135deg, var(--paper-soft), var(--paper-soft) 10px, var(--paper) 10px, var(--paper) 20px);
+}
+
+.coupon-tag {
+    position: absolute;
+    bottom: 0.6rem;
+    left: 0.6rem;
+    background: rgba(38, 32, 26, 0.82);
+    color: var(--paper-soft);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    padding: 0.3rem 0.6rem;
+    border-radius: 5px;
+    text-transform: uppercase;
+}
+
+/* perforation: dashed tear-line with punch-hole notches on both edges */
+.coupon-perforation {
+    position: relative;
+    height: 0;
+    border-top: 2px dashed var(--line);
+    margin: 0 0.9rem;
+}
+
+.coupon-perforation::before,
+.coupon-perforation::after {
+    content: "";
+    position: absolute;
+    top: -7px;
+    width: 14px;
+    height: 14px;
+    background: var(--paper);
+    border-radius: 50%;
+}
+
+.coupon-perforation::before { left: -0.9rem; }
+.coupon-perforation::after { right: -0.9rem; }
+
+.coupon-body {
+    padding: 1.1rem 1.3rem 1.3rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.coupon-body h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+    color: var(--ink);
+}
+
+.coupon-body p {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    flex: 1;
+}
+
+.coupon-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--line);
+}
+
+.coupon-date {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.news-card .read-more {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--chili);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.news-card .read-more:hover {
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   Empty state
+   ========================================================================== */
+.empty-state {
+    text-align: center;
+    padding: 3.5rem 1.5rem;
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+}
+
+.empty-state p {
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    margin-bottom: 1.2rem;
+}
+
+.empty-state code {
+    background: var(--paper-soft);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+}
+
+/* ==========================================================================
+   Forms (login / signup / add recipe / profile)
+   ========================================================================== */
+.form-section {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}
+
+.form-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 460px;
+}
+
+.form-card h2 {
+    font-size: 1.7rem;
+    margin-bottom: 0.4rem;
+}
+
+.form-sub {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    margin-bottom: 1.6rem;
+}
+
+.stacked-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-top: 1.5rem;
+}
+
+.stacked-form label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    margin-top: 0.8rem;
+}
+
+.stacked-form input[type="text"],
+.stacked-form input[type="password"],
+.stacked-form input[type="email"],
+.stacked-form select,
+.stacked-form textarea {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    padding: 0.75rem 0.95rem;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    background: var(--paper-soft);
+    color: var(--ink);
+    resize: vertical;
+    transition: border-color 0.15s ease;
+}
+
+.stacked-form input:focus,
+.stacked-form textarea:focus {
+    outline: none;
+    border-color: var(--turmeric);
+}
+
+.stacked-form input[type="file"] {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    padding: 0.5rem 0;
+}
+
+.stacked-form button {
+    margin-top: 1.5rem;
+}
+
+.form-footer {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+}
+
+.form-footer a {
+    color: var(--chili);
+    font-weight: 600;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Profile-specific */
+.profile-card {
+    max-width: 480px;
+}
+
+.profile-pic-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+}
+
+.profile-pic {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--turmeric);
+}
+
+.profile-pic-placeholder {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: var(--turmeric);
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+.profile-info {
+    text-align: center;
+    margin-bottom: 0.6rem;
+}
+
+.profile-info p {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.site-footer {
+    background: var(--ink);
+    color: var(--ink-soft);
+    text-align: center;
+    padding: 1.6rem 1.5rem;
+    font-size: 0.85rem;
+}
+
+.site-footer span {
+    color: var(--turmeric);
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   Category filter pills
+   ========================================================================== */
+.category-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+}
+
+.pill {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    background: var(--card-bg);
+    color: var(--ink-soft);
+    border: 1.5px solid var(--line);
+    transition: all 0.15s ease;
+}
+
+.pill:hover {
+    border-color: var(--turmeric);
+    color: var(--ink);
+}
+
+.pill-active {
+    background: var(--turmeric);
+    border-color: var(--turmeric);
+    color: var(--ink);
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   Like button
+   ========================================================================== */
+.coupon-image-link,
+.coupon-title-link {
+    display: block;
+}
+
+.like-form {
+    display: inline-block;
+}
+
+.like-btn {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    background: var(--paper-soft);
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    padding: 0.3rem 0.75rem;
+    cursor: pointer;
+    color: var(--ink-soft);
+    transition: all 0.15s ease;
+}
+
+.like-btn:hover {
+    border-color: var(--chili);
+}
+
+.like-btn.liked {
+    background: #FBEAE5;
+    border-color: var(--chili);
+    color: var(--chili);
+    font-weight: 700;
+}
+
+.like-count-static {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+}
+
+.detail-like-btn {
+    padding: 0.55rem 1.2rem;
+    font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   Recipe detail page
+   ========================================================================== */
+.detail-hero {
+    position: relative;
+    min-height: 320px;
+    display: flex;
+    align-items: flex-end;
+    background: var(--ink);
+    overflow: hidden;
+}
+
+.detail-image {
+    position: absolute;
+    inset: 0;
+}
+
+.detail-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.55;
+}
+
+.detail-placeholder {
+    height: 100%;
+    font-size: 5rem;
+    opacity: 0.3;
+}
+
+.detail-overlay {
+    position: relative;
+    z-index: 1;
+    padding: 2.5rem 1.5rem;
+    max-width: 1180px;
+    margin: 0 auto;
+    width: 100%;
+    color: #FFF9EE;
+}
+
+.back-link {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--turmeric);
+    margin-bottom: 1rem;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.detail-tag {
+    position: static;
+    display: inline-block;
+    margin-bottom: 0.8rem;
+}
+
+.detail-overlay h1 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    color: #FFF9EE;
+    margin-bottom: 1rem;
+}
+
+.detail-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: #D8CFC0;
+}
+
+.detail-body {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+    flex: 1;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+}
+
+.detail-main h2,
+.ingredients-card h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.9rem;
+    margin-top: 1.8rem;
+}
+
+.detail-main h2:first-child {
+    margin-top: 0;
+}
+
+.detail-description {
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+}
+
+.steps-list {
+    padding-left: 1.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.steps-list li {
+    padding-left: 0.3rem;
+    color: var(--ink);
+}
+
+.ingredients-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+    padding: 1.6rem 1.6rem 1.8rem;
+}
+
+.ingredients-card h2 {
+    margin-top: 0;
+}
+
+.ingredients-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+}
+
+.ingredients-list li {
+    padding-left: 1.4rem;
+    position: relative;
+    font-size: 0.92rem;
+    color: var(--ink);
+}
+
+.ingredients-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--turmeric);
+    font-weight: 700;
+}
+
+@media (max-width: 760px) {
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+@media (max-width: 760px) {
+    .nav-toggle {
+        display: flex;
+    }
+
+    .menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--ink);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.25s ease;
+    }
+
+    .menu.open {
+        max-height: 400px;
+        padding: 0.5rem 1.5rem 1.2rem;
+    }
+
+    .menu .nav-link {
+        padding: 0.7rem 0;
+        width: 100%;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav-cta {
+        margin-top: 0.6rem;
+        text-align: center;
+    }
+
+    .nav-toggle.open span:nth-child(1) { transform: translateY(8.5px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg); }
+
+    .form-card {
+        padding: 1.8rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* ==========================================================================
+   Phase 2 additions: forms row, danger button, badges, ratings, comments
+   ========================================================================== */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.form-row input {
+    width: 100%;
+}
+
+.btn-danger {
+    background: transparent;
+    color: var(--chili);
+    border: 1.5px solid var(--chili);
+    box-shadow: none;
+}
+
+.btn-danger:hover {
+    background: #FBEAE5;
+}
+
+.delete-form {
+    margin-top: 1rem;
+}
+
+.profile-page-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 460px;
+}
+
+.my-recipes-card {
+    max-width: none;
+}
+
+.my-recipes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.my-recipe-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.7rem 0.9rem;
+    background: var(--paper-soft);
+    border-radius: 10px;
+    font-size: 0.9rem;
+    color: var(--ink);
+    transition: background 0.15s ease;
+}
+
+.my-recipe-row:hover {
+    background: var(--paper);
+}
+
+.detail-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.info-badge {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    background: rgba(255, 249, 238, 0.12);
+    border: 1px solid rgba(255, 249, 238, 0.3);
+    color: #FFF9EE;
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+}
+
+.edit-link {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--turmeric);
+}
+
+.edit-link:hover {
+    text-decoration: underline;
+}
+
+.rating-section,
+.comments-section {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+}
+
+.rating-section h2,
+.comments-section h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.star-picker {
+    display: flex;
+    gap: 0.3rem;
+}
+
+.star-btn {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: var(--line);
+    cursor: pointer;
+    transition: color 0.15s ease, transform 0.1s ease;
+}
+
+.star-btn:hover {
+    transform: scale(1.1);
+}
+
+.star-btn.filled {
+    color: var(--turmeric);
+}
+
+.comment-form {
+    display: flex;
+    gap: 0.7rem;
+    margin-bottom: 1.5rem;
+    align-items: flex-start;
+}
+
+.comment-form textarea {
+    flex: 1;
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    padding: 0.7rem 0.9rem;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    background: var(--paper-soft);
+    resize: vertical;
+}
+
+.comment-item {
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.comment-item:last-child {
+    border-bottom: none;
+}
+
+.comment-head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.3rem;
+    font-size: 0.85rem;
+}
+
+.comment-item p {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+}
+
+.trending-section {
+    padding-bottom: 1.5rem;
+}
+
+@media (max-width: 600px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}

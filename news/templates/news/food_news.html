@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Food News — MessMate{% endblock %}
+
+{% block content %}
+
+<section class="hero hero-small">
+    <div class="hero-content">
+        <span class="eyebrow">Fresh off the wire</span>
+        <h1>Food News</h1>
+        <p>Latest food & cooking stories, pulled live from trusted kitchens around the web.</p>
+    </div>
+</section>
+
+<section class="recipes-section">
+    {% if feed_unavailable %}
+        <div class="empty-state">
+            <p>⚠️ News feed library isn't installed yet. Run <code>pip install feedparser</code> and restart the server.</p>
+        </div>
+    {% elif articles %}
+    <div class="coupon-grid">
+        {% for article in articles %}
+        <article class="coupon-card news-card">
+            <div class="coupon-image">
+                {% if article.image %}
+                    <img src="{{ article.image }}" alt="{{ article.title }}" loading="lazy">
+                {% else %}
+                    <div class="coupon-placeholder">📰</div>
+                {% endif %}
+                <span class="coupon-tag">{{ article.source }}</span>
+            </div>
+            <div class="coupon-perforation"></div>
+            <div class="coupon-body">
+                <h3>{{ article.title }}</h3>
+                <p>{{ article.summary }}</p>
+                <div class="coupon-footer">
+                    <span class="coupon-date">{{ article.published|truncatechars:20 }}</span>
+                    <a href="{{ article.link }}" target="_blank" rel="noopener noreferrer" class="read-more">Read more →</a>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <p>📡 Couldn't fetch news right now — the feeds may be temporarily unreachable. Try refreshing in a bit.</p>
+    </div>
+    {% endif %}
+</section>
+
+{% endblock %}
