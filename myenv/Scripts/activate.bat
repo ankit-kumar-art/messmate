@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=E:\Downloads\MessMate_updated_2\MessMate\myenv
+set VIRTUAL_ENV=E:\updae\messmate\myenv
 
 if not defined PROMPT set PROMPT=$P$G
 
